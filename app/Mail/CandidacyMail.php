@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Enums\EducationLevel;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
@@ -19,11 +20,23 @@ class CandidacyMail extends Mailable
     public $ip;
     public $cvFile;
 
-    public function __construct(string $name, string $desiredRole, string $educationLevel, string $observations, string $ip, string $cvFile)
+    public function __construct(string $name, string $desiredRole, string $educationLevel, string|null $observations, string $ip)
     {
         $this->name = $name;
         $this->desiredRole = $desiredRole;
-        $this->educationLevel = $educationLevel;
+        if ($educationLevel == 'MEDIUM_SCHOOL') {
+            $this->educationLevel = 'Ensino fundamental';
+        } else if ($educationLevel == 'HIGH_SCHOOL') {
+            $this->educationLevel = 'Ensino médio';
+        } else if ($educationLevel == 'UNDERGRADUATE') {
+            $this->educationLevel = 'Graduado(a)';
+        } else if ($educationLevel = 'POSTGRADUATE') {
+            $this->educationLevel = 'Pós-graduado(a)';
+        } else if ($educationLevel = 'MASTER') {
+            $this->educationLevel = 'Mestrado';
+        } else {
+            $this->educationLevel = 'Doutorado';
+        }
         $this->observations = $observations;
         $this->ip = $ip;
     }
@@ -34,7 +47,7 @@ class CandidacyMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Candidacy Mail',
+            subject: 'Candidatura',
         );
     }
 
@@ -51,7 +64,6 @@ class CandidacyMail extends Mailable
                 'educationLevel' => $this->educationLevel,
                 'observations' => $this->observations,
                 'ip' => $this->ip,
-                'cvFile' => $this->cvFile
             ]
         );
     }

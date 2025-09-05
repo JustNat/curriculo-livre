@@ -11,6 +11,7 @@ class Candidacy extends Model
     protected $fillable = [
         'name',
         'email',
+        'phone',
         'desired_role',
         'education_level',
         'observations',
