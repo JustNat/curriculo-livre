@@ -1,3 +1,9 @@
+## **Informações**
+
+Esse teste foi desenvolvido utilizando SQLITE e LocalStack, para simular um ambiente S3 para armazenamento dos arquivos enviados pelo formulário.
+
+A variável de ambiente `AWS_ENDPOINT`, no `.env`, redireciona para o localhost, como mostrando no `.env.example`. 
+
 ### **Forma de Envio**
 
 Para a entrega do teste, siga as instruções abaixo:
