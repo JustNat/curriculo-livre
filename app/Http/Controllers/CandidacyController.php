@@ -15,8 +15,6 @@ class CandidacyController extends Controller
     {
         $data = $request->validated();
 
-        // dd($data);
-
         $cvFile = $request->file('cv_file');
         $fileName = $this->fomartFileName(file: $cvFile, name: $data['name']);
 
